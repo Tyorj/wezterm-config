@@ -1,4 +1,6 @@
-## Lean WezTerm (Gruvbox)
+## Lean WezTerm 
+(the readme file is all generated)
+(completely messing around)
 
 Lightweight, cross-platform WezTerm setup for Arch (zsh) and Windows (PowerShell/WSL) with Gruvbox Dark, minimal keymaps, simple tab/status text, and per-OS font sizes. Defaults to WebGPU fallback and maximizes on launch.
 
