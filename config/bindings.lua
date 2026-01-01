@@ -12,7 +12,7 @@ elseif platform.is_win or platform.is_linux then
    mod.SUPER_REV = 'ALT|CTRL'
 end
 
-local leader = { key = 'CapsLock', mods = 'NONE', timeout_milliseconds = 1000 }
+local leader = { key = 'CapsLock', mods = 'NONE', timeout_milliseconds = 2000 }
 
 local function adjust_opacity_action(delta)
    return wezterm.action_callback(function(window, _pane)
