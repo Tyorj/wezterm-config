@@ -15,9 +15,13 @@ else
 end
 
 return {
-   font = wezterm.font({
-      family = font_family,
-      weight = 'Medium',
+   font = wezterm.font_with_fallback({
+      {
+         family = font_family,
+         weight = 'Medium',
+      },
+      'Noto Color Emoji',
+      'Noto Sans CJK SC',
    }),
    font_size = font_size,
 

@@ -25,6 +25,7 @@ return {
    use_fancy_tab_bar = false,
    tab_max_width = 28,
    show_tab_index_in_tab_bar = false,
+   tab_bar_at_bottom = true,
    switch_to_last_active_tab_when_closing_tab = true,
 
    -- command palette
@@ -42,6 +43,8 @@ return {
    },
    adjust_window_size_when_changing_font_size = false,
    window_close_confirmation = 'NeverPrompt',
+   window_decorations = 'RESIZE',
+   window_background_opacity = 0.9,
    window_frame = {
       active_titlebar_bg = colors.tab_bar.background,
    },

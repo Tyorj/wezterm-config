@@ -21,7 +21,7 @@ local function setup(opts)
    local host = show_host and wezterm.hostname() or ''
 
    wezterm.on('format-tab-title', function(tab, _tabs, _panes, _config, _hover, max_width)
-      local idx = tab.tab_index + 1
+      local idx = tab.tab_index
       local base_title = tab.active_pane.title or ''
       local pieces = { tostring(idx) .. ':', base_title }
 
