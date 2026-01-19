@@ -44,7 +44,7 @@ return {
    adjust_window_size_when_changing_font_size = false,
    window_close_confirmation = 'NeverPrompt',
    window_decorations = 'RESIZE',
-   window_background_opacity = 0.9,
+   window_background_opacity = 0.6,
    window_frame = {
       active_titlebar_bg = colors.tab_bar.background,
    },

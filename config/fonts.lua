@@ -2,16 +2,16 @@ local wezterm = require('wezterm')
 local platform = require('utils.platform')
 
 -- local font_family = 'Maple Mono NF'
-local font_family = 'JetBrainsMono Nerd Font'
+local font_family = 'Cascadia Code'
 -- local font_family = 'CartographCF Nerd Font'
 
 local font_size
 if platform.is_mac then
    font_size = 12
 elseif platform.is_win then
-   font_size = 10
+   font_size = 14
 else
-   font_size = 10
+   font_size = 13
 end
 
 return {
@@ -21,7 +21,7 @@ return {
          weight = 'Medium',
       },
       'Noto Color Emoji',
-      'Noto Sans CJK SC',
+      'Noto Sans CJK TC',
    }),
    font_size = font_size,
 

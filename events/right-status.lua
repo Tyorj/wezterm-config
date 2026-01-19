@@ -21,38 +21,34 @@ local function battery_text()
    return string.format('%.0f%%', b.state_of_charge * 100)
 end
 
-local function cwd_snippet(pane)
+local function user_host(pane)
    if not pane then
       return nil
    end
 
-   local cwd_uri = pane:get_current_working_dir()
-   if not cwd_uri then
-      return nil
+   -- Try to get user@host from shell integration user vars
+   local user_vars = pane:get_user_vars()
+   -- Check both Unix (USER) and Windows (USERNAME) environment variables
+   local user = user_vars.WEZTERM_USER or user_vars.USER or user_vars.USERNAME
+   local host = user_vars.WEZTERM_HOST or user_vars.HOSTNAME or user_vars.COMPUTERNAME
+   
+   -- Fallback to wezterm.hostname() if not available
+   if not host or #host == 0 then
+      host = wezterm.hostname()
    end
 
-   local path = cwd_uri.file_path or tostring(cwd_uri)
-   if not path or #path == 0 then
-      return nil
+   if not user then
+      user = os.getenv("USERNAME") or os.getenv("USER")
    end
-
-   path = path:gsub('^file://', '')
-   path = path:gsub('^/([A-Za-z]:)', '%1')
-   path = path:gsub('\\', '/')
-
-   local parts = {}
-   for part in path:gmatch('[^/]+') do
-      table.insert(parts, part)
+   
+   -- If we have user info, return user@host, otherwise just host
+   if user and #user > 0 then
+      return user .. '@' .. host
+   elseif host and #host > 0 then
+      return host
    end
-
-   local count = #parts
-   if count == 0 then
-      return nil
-   elseif count == 1 then
-      return parts[1]
-   else
-      return table.concat({ parts[count - 1], parts[count] }, '/')
-   end
+   
+   return nil
 end
 
 ---@param opts? RightStatusOptions
@@ -65,7 +61,8 @@ local function setup(opts)
       local leader_active = window:leader_is_active()
       local key_table = window:active_key_table()
       local workspace = window:active_workspace()
-      local cwd = cwd_snippet(pane)
+      local user_host_info = user_host(pane)
+      local domain = pane:get_domain_name()
 
       if leader_active then
          table.insert(pieces, '[LDR]')
@@ -75,12 +72,16 @@ local function setup(opts)
          table.insert(pieces, '[KT:' .. key_table .. ']')
       end
 
-      if workspace and #workspace > 0 then
-         table.insert(pieces, 'ws:' .. workspace)
+      if domain then
+         table.insert(pieces, '[' .. domain .. ']')
       end
 
-      if cwd and #cwd > 0 then
-         table.insert(pieces, cwd)
+      if user_host_info and #user_host_info > 0 then
+         table.insert(pieces, user_host_info)
+      end
+
+      if workspace and #workspace > 0 then
+         table.insert(pieces, 'ws:' .. workspace)
       end
 
       table.insert(pieces, wezterm.strftime(options.date_format))
