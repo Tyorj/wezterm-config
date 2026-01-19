@@ -1,10 +1,6 @@
 local wezterm = require('wezterm')
 local platform = require('utils.platform')
 
--- local font_family = 'Maple Mono NF'
-local font_family = 'Cascadia Code'
--- local font_family = 'CartographCF Nerd Font'
-
 local font_size
 if platform.is_mac then
    font_size = 12
@@ -15,14 +11,12 @@ else
 end
 
 return {
-   font = wezterm.font_with_fallback({
-      {
-         family = font_family,
-         weight = 'Medium',
-      },
+   font = wezterm.font_with_fallback{
+      { family = 'Cascadia Code' },
+      { family = 'JetBrains Mono', weight = 'Medium' },
       'Noto Color Emoji',
       'Noto Sans CJK TC',
-   }),
+   },
    font_size = font_size,
 
    --ref: https://wezfurlong.org/wezterm/config/lua/config/freetype_pcf_long_family_names.html#why-doesnt-wezterm-use-the-distro-freetype-or-match-its-configuration
